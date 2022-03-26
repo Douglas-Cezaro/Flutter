@@ -1,0 +1,24 @@
+Parametros nomeados
+
+para passar os parametros sem serem na ordem utilizar, parenteses e na hora de declarar passar o nome do parametro
+
+variaveis podem ter o valor null para fazer isso na hora de declarar é preciso colocar 
+
+bool? nomeVariavel
+
+teste("Douglas", valor:"tadeu")
+
+void teste(String nome, {bool? teste, String valor = '1'})
+
+Converter variavel nullable para non nullable
+
+nomevariavelNUll ?? 'Valor que quer converter'
+
+
+REFERENCIA
+
+Variavels primitivas passadas por parametro são copiadas;
+
+Variaveis que são classe (não primitivas) são passadas por referencia;
+
+Classes abstracts não podem ser instanciadas
