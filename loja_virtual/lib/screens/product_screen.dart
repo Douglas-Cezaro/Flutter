@@ -14,6 +14,8 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
   final ProductData product;
 
+  String? size;
+
   _ProductScreenState(this.product);
 
   @override
@@ -57,6 +59,89 @@ class _ProductScreenState extends State<ProductScreen> {
                     color: primaryColor,
                   ),
                 ),
+                const SizedBox(
+                  height: 16.0,
+                ),
+                const Text(
+                  "Tamanho",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  height: 34.0,
+                  child: GridView(
+                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                    scrollDirection: Axis.horizontal,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 1,
+                      mainAxisSpacing: 8.0,
+                      childAspectRatio: 0.5,
+                    ),
+                    children: product.sizes
+                        .map((s) => GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  size = s;
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(4.0)),
+                                  border: Border.all(
+                                      color: s == size
+                                          ? primaryColor
+                                          : Colors.grey,
+                                      width: 3.0),
+                                ),
+                                width: 50.0,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  s,
+                                  style: TextStyle(
+                                    color:
+                                        s == size ? primaryColor : Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16.0,
+                ),
+                SizedBox(
+                  height: 44.0,
+                  child: ElevatedButton(
+                    onPressed: size != null ? () {} : null,
+                    child: const Text(
+                      "Adicionar ao carrinho",
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          size != null ? primaryColor : Colors.grey),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                const Text(
+                  "Descrição",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  product.description,
+                  style: const TextStyle(fontSize: 16.0),
+                )
               ],
             ),
           ),
