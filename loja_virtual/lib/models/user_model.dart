@@ -38,13 +38,34 @@ class UserModel extends Model {
     });
   }
 
-  void singIn() async {
+  void singIn({
+    required String email,
+    required String pass,
+    required VoidCallback onSuccess,
+    required VoidCallback onFail,
+  }) async {
     isLoading = true;
     notifyListeners();
-    await Future.delayed(const Duration(seconds: 3));
-    isLoading = false;
-    //Notificar o flutter que houver modificações no app e tudo que estiver no ScopedModelDescendant vai ser atualizado
-    notifyListeners();
+
+    _auth
+        .signInWithEmailAndPassword(email: email, password: pass)
+        .then((user) async {
+      firebaseUser = user.user;
+      await _loadCurrentUser();
+      onSuccess();
+      isLoading = false;
+      notifyListeners();
+    }).catchError((e) {
+      onFail();
+      isLoading = false;
+      notifyListeners();
+    });
+  }
+
+  @override
+  void addListener(VoidCallback listener) {
+    super.addListener(listener);
+    _loadCurrentUser();
   }
 
   void recoverPass() {}
@@ -65,6 +86,22 @@ class UserModel extends Model {
     await _auth.signOut();
     userData = {};
     firebaseUser = null;
+    notifyListeners();
+  }
+
+  Future<void> _loadCurrentUser() async {
+    firebaseUser ??= await _auth.currentUser;
+
+    if (firebaseUser != null) {
+      if (userData.isEmpty || userData["name"] == null) {
+        DocumentSnapshot docUser = await FirebaseFirestore.instance
+            .collection("users")
+            .doc(firebaseUser!.uid)
+            .get();
+
+        userData = docUser.data() as Map<String, dynamic>;
+      }
+    }
     notifyListeners();
   }
 }

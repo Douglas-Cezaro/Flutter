@@ -3,14 +3,24 @@ import 'package:loja_virtual/models/user_model.dart';
 import 'package:loja_virtual/screens/signup_screen.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _emailController = TextEditingController();
+  final _passController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: const Text("Entrar"),
         centerTitle: true,
@@ -41,6 +51,7 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               children: [
                 TextFormField(
+                  controller: _emailController,
                   decoration: const InputDecoration(
                     hintText: 'E-mail',
                     border: OutlineInputBorder(
@@ -62,6 +73,7 @@ class LoginScreen extends StatelessWidget {
                   height: 16.0,
                 ),
                 TextFormField(
+                  controller: _passController,
                   decoration: const InputDecoration(
                     hintText: 'Senha',
                     border: OutlineInputBorder(
@@ -73,14 +85,19 @@ class LoginScreen extends StatelessWidget {
                   autocorrect: false,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (text) {
-                    if (text!.isEmpty ||
-                        text.trim().length <= 0 ||
-                        text.trim().length < 6) {
+                    if (text!.isEmpty || text.trim().length <= 0) {
                       return "Senha inválida";
                     }
                   },
                   onFieldSubmitted: (text) {
-                    if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                      model.singIn(
+                        email: _emailController.text,
+                        pass: _passController.text,
+                        onSuccess: _onSuccess,
+                        onFail: _onFail,
+                      );
+                    }
                   },
                 ),
                 Align(
@@ -105,7 +122,12 @@ class LoginScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {}
-                      model.singIn();
+                      model.singIn(
+                        email: _emailController.text,
+                        pass: _passController.text,
+                        onSuccess: _onSuccess,
+                        onFail: _onFail,
+                      );
                     },
                     child: const Text(
                       "Entrar",
@@ -126,6 +148,20 @@ class LoginScreen extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+
+  void _onSuccess() {
+    Navigator.of(context).pop();
+  }
+
+  void _onFail() {
+    _scaffoldKey.currentState?.showSnackBar(
+      const SnackBar(
+        content: Text("Falha ao entrar"),
+        backgroundColor: Colors.red,
+        duration: Duration(seconds: 2),
       ),
     );
   }
