@@ -13,6 +13,9 @@ class UserModel extends Model {
 
   bool isLoading = false;
 
+  static UserModel of(BuildContext context) =>
+      ScopedModel.of<UserModel>(context);
+
   void singUp({
     required Map<String, dynamic> userData,
     required String pass,
@@ -68,7 +71,9 @@ class UserModel extends Model {
     _loadCurrentUser();
   }
 
-  void recoverPass() {}
+  void recoverPass(String email) {
+    _auth.sendPasswordResetEmail(email: email);
+  }
 
   bool isLoggedIn() {
     return firebaseUser != null;

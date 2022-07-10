@@ -10,6 +10,8 @@ class CartProduct {
 
   late ProductData productData;
 
+  CartProduct();
+
   CartProduct.fromDocument(DocumentSnapshot snapshot) {
     final data = snapshot.data() as Map<String, dynamic>;
     cid = snapshot.id;
@@ -19,13 +21,13 @@ class CartProduct {
     size = data["size"];
   }
 
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
       'category': category,
       'pid': pid,
       'quantity': quantity,
       'size': size,
-      'product': productData.toResumeMap()
+      //'product': productData.toResumeMap()
     };
   }
 }
