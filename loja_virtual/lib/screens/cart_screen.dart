@@ -80,12 +80,13 @@ class CartScreen extends StatelessWidget {
               ),
             );
           } else if (model.products == null || model.products.length == 0) {
-            return const Center(
+            return  Center(
               child: Text(
                 "Nenhum produto no carrinho!",
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor
                 ),
                 textAlign: TextAlign.center,
               ),

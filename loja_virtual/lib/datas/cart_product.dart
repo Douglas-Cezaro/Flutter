@@ -8,7 +8,7 @@ class CartProduct {
   late int quantity;
   late String size;
 
-  late ProductData productData;
+  ProductData? productData;
 
   CartProduct();
 
@@ -27,7 +27,7 @@ class CartProduct {
       'pid': pid,
       'quantity': quantity,
       'size': size,
-      //'product': productData.toResumeMap()
+      // 'product': productData.toResumeMap()
     };
   }
 }

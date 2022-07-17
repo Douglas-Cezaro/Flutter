@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/datas/cart_product.dart';
 import 'package:loja_virtual/datas/product_data.dart';
+import 'package:loja_virtual/models/cart_model.dart';
 
 class CartTile extends StatelessWidget {
   const CartTile({Key? key, required this.cartProduct}) : super(key: key);
@@ -18,7 +19,7 @@ class CartTile extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             width: 120.0,
             child: Image.network(
-              cartProduct.productData.images[0],
+              cartProduct.productData!.images[0],
               fit: BoxFit.cover,
             ),
           ),
@@ -30,7 +31,7 @@ class CartTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  cartProduct.productData.title,
+                  cartProduct.productData!.title,
                   style: const TextStyle(
                       fontWeight: FontWeight.w500, fontSize: 17.0),
                 ),
@@ -39,7 +40,7 @@ class CartTile extends StatelessWidget {
                   style: const TextStyle(fontWeight: FontWeight.w300),
                 ),
                 Text(
-                  "R\$ ${cartProduct.productData.price.toStringAsFixed(2)}",
+                  "R\$ ${cartProduct.productData!.price.toStringAsFixed(2)}",
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 16.0,
@@ -50,16 +51,22 @@ class CartTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconButton(
-                        onPressed: cartProduct.quantity > 1 ? () {} : null,
+                        onPressed: cartProduct.quantity > 1 ? () {
+                          CartModel.of(context).decProduct(cartProduct);
+                        } : null,
                         icon: Icon(Icons.remove,
                             color: Theme.of(context).primaryColor)),
                     Text(cartProduct.quantity.toString()),
                     IconButton(
-                        onPressed: null,
+                        onPressed: (){
+                          CartModel.of(context).incProduct(cartProduct);
+                        },
                         icon: Icon(Icons.add,
                             color: Theme.of(context).primaryColor)),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        CartModel.of(context).removeCartItem(cartProduct);
+                      },
                       child: const Text(
                         "Remover",
                         style: TextStyle(color: Colors.white),
