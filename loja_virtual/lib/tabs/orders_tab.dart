@@ -22,6 +22,17 @@ class OrdersTab extends StatelessWidget {
             return const Center(
               child: CircularProgressIndicator(),
             );
+          } else if (snapshot.data!.docs.isEmpty) {
+            return Center(
+              child: Text(
+                "Nenhum pedido feito até o momento!",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 16.0,
+                ),
+              ),
+            );
           } else {
             return ListView(
               children: snapshot.data!.docs
@@ -45,11 +56,12 @@ class OrdersTab extends StatelessWidget {
             const SizedBox(
               height: 16.0,
             ),
-            const Text(
+            Text(
               "Faça o login para acompanhar seus pedidos!",
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
               ),
               textAlign: TextAlign.center,
             ),

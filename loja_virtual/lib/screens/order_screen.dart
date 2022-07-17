@@ -23,17 +23,19 @@ class OrderScreen extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               size: 80.0,
             ),
-            const Text(
+            Text(
               "Pedido realizado com sucesso!",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
+                color: Theme.of(context).primaryColor,
               ),
             ),
             Text(
               "Código do pedido $orderId",
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 16.0,
+                color: Theme.of(context).primaryColor,
               ),
             )
           ],
