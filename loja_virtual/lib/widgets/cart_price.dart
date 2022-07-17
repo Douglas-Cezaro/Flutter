@@ -15,6 +15,10 @@ class CartPrice extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: ScopedModelDescendant<CartModel>(
           builder: (context, child, model) {
+            double price = model.getProductsPrice();
+            double discount = model.getDiscount();
+            double ship = model.getShipPrice();
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -30,7 +34,7 @@ class CartPrice extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text("Subtotal"),
-                    Text("R\$ 0.00"),
+                    Text("R\$ ${price.toStringAsFixed(2)}"),
                   ],
                 ),
                 const Divider(),
@@ -38,7 +42,8 @@ class CartPrice extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text("Desconto"),
-                    Text("R\$ 0.00"),
+                    Text(
+                        "R\$ ${discount > 0 ? '- ' + discount.toStringAsFixed(2) : discount.toStringAsFixed(2)}"),
                   ],
                 ),
                 const Divider(),
@@ -46,7 +51,7 @@ class CartPrice extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text("Entrega"),
-                    Text("R\$ 0.00"),
+                    Text("R\$ ${ship.toStringAsFixed(2)}"),
                   ],
                 ),
                 const Divider(),
@@ -63,7 +68,7 @@ class CartPrice extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "R\$ 0.00",
+                      "R\$ ${(price + ship - discount).toStringAsFixed(2)}",
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 16.0,
