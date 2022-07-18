@@ -39,6 +39,8 @@ class OrdersTab extends StatelessWidget {
                   .map((doc) => OrderTile(
                         orderId: doc.id,
                       ))
+                  .toList()
+                  .reversed
                   .toList(),
             );
           }
