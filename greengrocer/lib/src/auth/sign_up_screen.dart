@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greengrocer/src/auth/components/custom_text_field.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -6,33 +7,89 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: CustomColors.customSwatchColor,
-      body: Column(
-        children: [
-          //Titulo
-          const Expanded(
-            flex: 1,
-            child: Center(
-              child: Text(
-                "Cadastro",
-                style: TextStyle(color: Colors.white, fontSize: 35.0),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: size.height,
+          width: size.width,
+          child: Column(
+            children: [
+              //Titulo
+              const Expanded(
+                flex: 1,
+                child: Center(
+                  child: Text(
+                    "Cadastro",
+                    style: TextStyle(color: Colors.white, fontSize: 35.0),
+                  ),
+                ),
               ),
-            ),
-          ),
-          // Formulario
-          Expanded(
-            flex: 2,
-            child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 32.0, vertical: 40.0),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(45.0)),
+              // Formulario
+              Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 32.0, vertical: 40.0),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(45.0)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // Email
+                    const CustomTextField(
+                      icon: Icons.email,
+                      label: "Email",
+                      inputType: TextInputType.emailAddress,
+                    ),
+                    // Senha
+                    const CustomTextField(
+                      icon: Icons.lock,
+                      label: "Senha",
+                      isSecret: true,
+                    ),
+                    // Nome
+                    const CustomTextField(
+                      icon: Icons.person,
+                      label: "Nome",
+                    ),
+                    // Celular
+                    const CustomTextField(
+                      icon: Icons.phone,
+                      label: "Celular",
+                      inputType: TextInputType.phone,
+                    ),
+                    // CPF
+                    const CustomTextField(
+                      icon: Icons.file_copy,
+                      label: "CPF",
+                      inputType: TextInputType.number,
+                    ),
+                    // Botão Registrar
+                    SizedBox(
+                      height: 50.0,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(18.0),
+                          ),
+                        ),
+                        onPressed: () {},
+                        child: const Text(
+                          "Registrar",
+                          style: TextStyle(fontSize: 18.0),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

@@ -85,6 +85,7 @@ class SignInScreen extends StatelessWidget {
                     const CustomTextField(
                       label: "Email",
                       icon: Icons.email,
+                      inputType: TextInputType.emailAddress,
                     ),
                     // Senha
                     const CustomTextField(
