@@ -4,6 +4,8 @@ import 'package:greengrocer/src/auth/components/custom_text_field.dart';
 import 'package:greengrocer/src/auth/sign_up_screen.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 
+import '../base/base_screen.dart';
+
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
 
@@ -101,7 +103,12 @@ class SignInScreen extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18.0),
                         )),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                                builder: (context) => const BaseScreen()),
+                          );
+                        },
                         child: const Text(
                           "Entrar",
                           style: TextStyle(
@@ -159,11 +166,10 @@ class SignInScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context){
-                              return SignUpScreen();
-                            })
-                          );
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return SignUpScreen();
+                          }));
                         },
                         child: const Text(
                           "Criar conta",
