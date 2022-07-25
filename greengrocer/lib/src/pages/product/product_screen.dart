@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/models/item_model.dart';
@@ -16,75 +17,115 @@ class ProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white.withAlpha(230),
-      body: Column(
+      body: Stack(
         children: [
-          // Imagem
-          Expanded(child: Image.asset(item.imgUrl)),
-          Expanded(
-              child: Container(
-            padding: const EdgeInsets.all(32.0),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(50)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade600,
-                    offset: const Offset(0, 2),
-                  )
-                ]),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Nome - Quantidade
-                Row(
+          Column(
+            children: [
+              // Imagem
+              Expanded(
+                child: Hero(
+                  tag: item.imgUrl,
+                  child: Image.asset(item.imgUrl),
+                ),
+              ),
+              Expanded(
+                  child: Container(
+                padding: const EdgeInsets.only(
+                    left: 32.0, right: 32.0, top: 32.0, bottom: 5.0),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        const BorderRadius.vertical(top: Radius.circular(50)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade600,
+                        offset: const Offset(0, 2),
+                      )
+                    ]),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    // Nome - Quantidade
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            item.itemName,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 27.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 30,
+                          width: 70,
+                          color: Colors.red,
+                        )
+                      ],
+                    ),
+                    // Preço
+                    Text(
+                      utilsServices.priceToCurrency(item.price),
+                      style: TextStyle(
+                        fontSize: 23.0,
+                        fontWeight: FontWeight.bold,
+                        color: CustomColors.customSwatchColor,
+                      ),
+                    ),
+                    // Descrição
                     Expanded(
-                      child: Text(
-                        item.itemName,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 27.0,
-                          fontWeight: FontWeight.bold,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: SingleChildScrollView(
+                          child: Text(
+                            item.description,
+                            style: const TextStyle(
+                              height: 1.5,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                    Container(
-                      height: 30,
-                      width: 70,
-                      color: Colors.red,
+                    // Botão
+                    SizedBox(
+                      height: 55,
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        )),
+                        onPressed: () {},
+                        label: const Text(
+                          "Add no carrinho",
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        icon: const Icon(
+                          Icons.shopping_cart_outlined,
+                          color: Colors.white,
+                        ),
+                      ),
                     )
                   ],
                 ),
-                // Preço
-                Text(
-                  utilsServices.priceToCurrency(item.price),
-                  style: TextStyle(
-                    fontSize: 23.0,
-                    fontWeight: FontWeight.bold,
-                    color: CustomColors.customSwatchColor,
-                  ),
-                ),
-                // Descrição
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: SingleChildScrollView(
-                      child: Text(
-                        item.description * 10,
-                        style: const TextStyle(
-                          height: 1.5,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                // Botão
-                ElevatedButton(onPressed: () {}, child: Text("Teste"))
-              ],
+              )),
+            ],
+          ),
+          Positioned(
+            left: 10,
+            top: 10,
+            child: SafeArea(
+              child: IconButton(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: const Icon(Icons.arrow_back_ios),
+              ),
             ),
-          )),
+          ),
         ],
       ),
     );
