@@ -38,7 +38,7 @@ class _BaseScreenState extends State<BaseScreen> {
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.green,
         selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white.withAlpha(100),
+        unselectedItemColor: Colors.green.shade900,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
