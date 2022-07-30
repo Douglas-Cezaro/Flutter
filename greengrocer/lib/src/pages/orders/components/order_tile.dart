@@ -27,6 +27,7 @@ class OrderTile extends StatelessWidget {
         child: ExpansionTile(
           initiallyExpanded: order.status == 'pending_payment',
           childrenPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+          expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
           title: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,6 +78,42 @@ class OrderTile extends StatelessWidget {
                 ],
               ),
             ),
+            // Total
+            Text.rich(
+              TextSpan(
+                style: const TextStyle(
+                  fontSize: 20.0,
+                ),
+                children: [
+                  const TextSpan(
+                    text: 'Total ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: _utilsServices.priceToCurrency(order.total),
+                  ),
+                ],
+              ),
+            ),
+            // Botão pagamento
+            Visibility(
+              visible: order.status == "pending_payment",
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                ),
+                onPressed: () {},
+                icon: Image.asset(
+                  'assets/app_images/pix.png',
+                  height: 18.0,
+                ),
+                label: const Text("Ver QR Code Pix"),
+              ),
+            )
           ],
         ),
       ),
