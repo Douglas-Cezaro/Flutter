@@ -34,13 +34,23 @@ class OrderStatusWidget extends StatelessWidget {
             isActive: true,
             title: 'Pix estornado',
             background: Colors.orange,
+            icon: Icons.close,
           ),
         ] else if (isOverdue) ...[
           const _StatusDot(
             isActive: true,
             title: 'Pagamento PIX vencido',
             background: Colors.red,
+            icon: Icons.close,
           )
+        ] else ...[
+          _StatusDot(isActive: currentStatus >= 2, title: 'Pagamento'),
+          const _CustomDivider(),
+          _StatusDot(isActive: currentStatus >= 3, title: 'Preparando'),
+          const _CustomDivider(),
+          _StatusDot(isActive: currentStatus >= 4, title: 'Envio'),
+          const _CustomDivider(),
+          _StatusDot(isActive: currentStatus == 5, title: 'Entregue'),
         ]
       ],
     );
@@ -65,12 +75,14 @@ class _StatusDot extends StatelessWidget {
   final bool isActive;
   final String title;
   final Color? background;
+  final IconData? icon;
 
   const _StatusDot({
     Key? key,
     required this.isActive,
     required this.title,
     this.background,
+    this.icon,
   }) : super(key: key);
 
   @override
@@ -85,15 +97,15 @@ class _StatusDot extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: CustomColors.customSwatchColor,
+              color: background ?? CustomColors.customSwatchColor,
             ),
             color: isActive
                 ? background ?? CustomColors.customSwatchColor
                 : Colors.transparent,
           ),
           child: isActive
-              ? const Icon(
-                  Icons.check,
+              ? Icon(
+                  icon ?? Icons.check,
                   size: 13.0,
                   color: Colors.white,
                 )

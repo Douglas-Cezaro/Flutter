@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:greengrocer/src/config/app_data.dart';
 import 'package:greengrocer/src/models/cart_item_model.dart';
 import 'package:greengrocer/src/models/order_model.dart';
 import 'package:greengrocer/src/pages/orders/components/order_status_widget.dart';
@@ -24,6 +25,7 @@ class OrderTile extends StatelessWidget {
           dividerColor: Colors.transparent,
         ),
         child: ExpansionTile(
+          initiallyExpanded: order.status == 'pending_payment',
           childrenPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
           title: Column(
             mainAxisSize: MainAxisSize.min,
@@ -40,20 +42,22 @@ class OrderTile extends StatelessWidget {
             ],
           ),
           children: [
-            SizedBox(
-              height: 150,
+            IntrinsicHeight(
               child: Row(
                 children: [
                   // Lista de produtos
                   Expanded(
                     flex: 3,
-                    child: ListView(
-                      children: order.items.map((orderItem) {
-                        return _OrderItemWidget(
-                          orderItem: orderItem,
-                          utilsServices: _utilsServices,
-                        );
-                      }).toList(),
+                    child: SizedBox(
+                      height: 150.0,
+                      child: ListView(
+                        children: order.items.map((orderItem) {
+                          return _OrderItemWidget(
+                            orderItem: orderItem,
+                            utilsServices: _utilsServices,
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
                   // Divisão
