@@ -6,6 +6,7 @@ import 'package:greengrocer/src/config/app_data.dart' as appData;
 import 'package:greengrocer/src/config/custom_colors.dart';
 import 'package:greengrocer/src/pages/home/components/category_tile.dart';
 import 'package:greengrocer/src/pages/home/components/item_tile.dart';
+import 'package:greengrocer/src/services/utils_services.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -24,6 +25,8 @@ class _HomeTabState extends State<HomeTab> {
   void itemSelectedCartAnimations(GlobalKey gkImage) {
     runAddToCardAnimation(gkImage);
   }
+
+  final UtilsServices _utilsServices = UtilsServices();
 
   @override
   Widget build(BuildContext context) {
