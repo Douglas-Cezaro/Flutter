@@ -35,7 +35,12 @@ class _BaseScreenState extends State<BaseScreen> {
         onTap: (index) {
           setState(() {
             currentIndex = index;
-            _pageController.jumpToPage(index);
+            // _pageController.jumpToPage(index);
+            _pageController.animateToPage(
+              index,
+              duration: const Duration(milliseconds: 700),
+              curve: Curves.ease,
+            );
           });
         },
         type: BottomNavigationBarType.fixed,
