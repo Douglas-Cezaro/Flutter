@@ -115,12 +115,12 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class DataScreen extends StatelessWidget {
+class DataScreen extends GetView<UserController> {
   DataScreen({
     Key? key,
   }) : super(key: key);
 
-  final UserController controller = Get.find<UserController>();
+  // final UserController controller = Get.find<UserController>();
 
   TextStyle commonStyle() => const TextStyle(
         fontSize: 20,
