@@ -78,8 +78,9 @@ class PaymentDialog extends StatelessWidget {
                   ),
                   onPressed: () {
                     Clipboard.setData(ClipboardData(text: order.copyAndPaste));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Copiado com sucesso!")),
+                    utilsServices.showToast(
+                      message: "Pix copiado com sucesso!",
+                      isError: false,
                     );
                   },
                   icon: const Icon(
