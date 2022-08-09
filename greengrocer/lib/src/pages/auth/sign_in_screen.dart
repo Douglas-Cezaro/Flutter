@@ -11,6 +11,10 @@ class SignInScreen extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
+  // Controlador de campos
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -84,6 +88,7 @@ class SignInScreen extends StatelessWidget {
                           }
                           return null;
                         },
+                        controller: emailController,
                       ),
                       // Senha
                       CustomTextField(
@@ -96,6 +101,7 @@ class SignInScreen extends StatelessWidget {
                           }
                           return null;
                         },
+                        controller: passwordController,
                       ),
                       // Botão de Entrar
                       SizedBox(
@@ -107,6 +113,8 @@ class SignInScreen extends StatelessWidget {
                           )),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
+                              String email = emailController.text;
+                              String password = passwordController.text;
                               Get.offNamed(PageRoutes.baseRoute);
                             }
                           },
