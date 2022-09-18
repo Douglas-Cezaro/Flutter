@@ -124,7 +124,7 @@ class SignInScreen extends StatelessWidget {
                                             passwordController.text;
                                         authController.singIn(
                                             email: email, password: password);
-                                        Get.offNamed(PageRoutes.baseRoute);
+                                        // Get.offNamed(PageRoutes.baseRoute);
                                       }
                                     },
                               child: authController.isLoading.value
