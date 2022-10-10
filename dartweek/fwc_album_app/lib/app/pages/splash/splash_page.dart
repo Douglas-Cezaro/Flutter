@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fwc_album_app/app/core/ui/helpers/loader.dart';
 import 'package:fwc_album_app/app/core/ui/helpers/messages.dart';
 import 'package:fwc_album_app/app/core/ui/styles/button_styles.dart';
+import 'package:fwc_album_app/app/core/ui/styles/colors_app.dart';
 import 'package:fwc_album_app/app/core/ui/styles/text_styles.dart';
 import 'package:fwc_album_app/app/core/ui/widgets/button.dart';
 import 'package:fwc_album_app/app/core/ui/widgets/rounded_button.dart';
@@ -18,54 +19,52 @@ class _SplashPageState extends State<SplashPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Splash Page'),
+      backgroundColor: context.colors.primary,
+      body: DecoratedBox(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background_splash.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SafeArea(
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 12.0),
+                  child: Image.asset(
+                    "assets/images/fifa_logo.png",
+                    height: MediaQuery.of(context).size.height * .25,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.height * .18,
+                  ),
+                  child: Button(
+                    width: MediaQuery.of(context).size.width * .9,
+                    height: 40.0,
+                    onPressed: () {},
+                    style: context.buttonStyles.yellowButton,
+                    labelStyle: context
+                        .textStyles.textSecondaryFontExtraBoldPrimaryColor,
+                    label: "Acessar",
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Image.asset("assets/images/bandeiras.png"),
+              )
+            ],
+          ),
+        ),
       ),
-      body: Center(
-          child: Column(
-        children: [
-          ElevatedButton(
-            onPressed: () async {
-              showLoader();
-
-              await Future.delayed(Duration(seconds: 2));
-
-              hideLoader();
-            },
-            style: ButtonStyles.i.yellowButton,
-            child: Text("Salvar"),
-          ),
-          OutlinedButton(
-            onPressed: () {
-              showError("Erro no botao");
-            },
-            style: ButtonStyles.i.yellowOutlineButton,
-            child: Text("Salvar"),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              showInfo("INFO BUTTON");
-            },
-            style: ButtonStyles.i.primaryButton,
-            child: Text("Salvar"),
-          ),
-          OutlinedButton(
-            onPressed: () {
-              showSuccess("SUCCESS BUTTON");
-            },
-            style: ButtonStyles.i.primaryOutlineButton,
-            child: Text("Salvar"),
-          ),
-          TextField(),
-          Button(
-            style: ButtonStyles.i.primaryButton,
-            labelStyle: context.textStyles.textPrimaryFontBold,
-            label: "Salvar",
-            onPressed: (() {}),
-          ),
-          RoundedButton(icon: Icons.add_sharp, onPressed: () {})
-        ],
-      )),
     );
   }
 }
