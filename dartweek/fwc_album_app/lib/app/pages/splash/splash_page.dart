@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fwc_album_app/app/core/ui/helpers/loader.dart';
+import 'package:fwc_album_app/app/core/ui/helpers/messages.dart';
 import 'package:fwc_album_app/app/core/ui/styles/button_styles.dart';
 import 'package:fwc_album_app/app/core/ui/styles/text_styles.dart';
 import 'package:fwc_album_app/app/core/ui/widgets/button.dart';
@@ -12,7 +13,8 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> with Loader {
+class _SplashPageState extends State<SplashPage>
+    with Loader<SplashPage>, Messages<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,17 +36,23 @@ class _SplashPageState extends State<SplashPage> with Loader {
             child: Text("Salvar"),
           ),
           OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              showError("Erro no botao");
+            },
             style: ButtonStyles.i.yellowOutlineButton,
             child: Text("Salvar"),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              showInfo("INFO BUTTON");
+            },
             style: ButtonStyles.i.primaryButton,
             child: Text("Salvar"),
           ),
           OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              showSuccess("SUCCESS BUTTON");
+            },
             style: ButtonStyles.i.primaryOutlineButton,
             child: Text("Salvar"),
           ),
