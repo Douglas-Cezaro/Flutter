@@ -13,6 +13,11 @@ class AuthController extends GetxController {
 
   UserModel user = UserModel();
 
+  Future<void> validateToken() async {
+    // TODO Recuperar o token que foi salvo localmente
+    // authRepository.validateToken();
+  }
+
   Future<void> singIn({
     required String email,
     required String password,
